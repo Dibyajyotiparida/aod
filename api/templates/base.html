@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#12171f" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>AOD {{title}}</title>
+    {% load staticfiles %}
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
+    <!-- Bootstrap and vendor css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'vendor/custom-scrollbar/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owlcarousel/owl.carousel.css' %}">
+    <!--Main CSS-->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/audioplayer.css' %}">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top background-container">
+        <ul class="nav navbar-nav">
+            <!--Hamburger Menu : Mobile Only-->
+            <li class="hamburger">
+                <a href=".if-mobile" type="button" class="hamburger-trigger" data-class="menu-visible">
+                    <img src="{% static 'assets/Icons/humburger.png' %}" alt="Menu" width="20">
+                </a>
+            </li>
+            <!--Logo-->
+            <li class="brand">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img src="{% static 'assets/Logo.png' %}" alt="Brand Logo">
+                </a>
+            </li>
+            <!--Search-->
+            <li class="search">
+                <span href=".search" class="toggle" data-class="search-visible">
+                    <img src="{% static 'assets/Icons/search.png' %}" alt="" width="16">
+                </span>
+                <form class="" action="{% url 'search' %}">
+                    <label for="search" class="hidden">Search</label>
+                    <input type="search" name="s" value="" placeholder="Search" class="search-field form-control">
+                </form>
+            </li>
+            <!--Menu -->
+            <li class="pull-right open">
+                <a href=".open" type="button" class="visible-xs more-menu dropdown-toggle" data-class="menu-visible">
+                    <img src="{% static 'assets/Icons/more.png' %}" alt="More" width="15">
+                </a>
+                <div class="dropdown-menu-visible-xs">
+                    <ul class="list-inline">
+
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <ul class="list-inline" id="user_menu">
+                                {% if request.session.logged_in %}
+                                    <li><a href="javascript:void(0);">{{request.session.name}}</a></li>
+                                    <li>
+                                        <a href="{% url 'logout'%}" >Logout</a>
+                                    </li>
+                                {% else %}
+                                <li>
+                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">Login</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="javascript:void(0)" class="btn as-btn-accent as-btn-sm" data-toggle="modal" data-target="#myModal-register">Register</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!--Wrapper-->
+   <div class="wrapper background-container">
+       <!--Sidebar Navigation Content-->
+       <nav class="sidebar-menu if-mobile mCustomScrollbar" data-mcs-theme="dark">
+           <a href="{% url 'home' %}" {% if request.path == '/' %} class="active" {% endif %} > Home </a>
+           {% for i in menu %}
+           <a href="{% url 'category' i.permalink %}" {% if request.path == '/category/'|add:i.permalink|add:'/' %}class="active" {% endif %}> {{i.name}} </a>
+           {% endfor %}
+        </nav>
+       <div class="wrapper-inner">
+          {% if detailsPage %}
+           <div class="page-header">
+               <!--Background Banner-->
+               <div class="fill-header if-contentList">
+                   <img src="{% static 'assets/Red.jpg' %}" alt="Banner Header">
+               </div>
+               <!--If page header has a title , uncomment it-->
+               <!--<div class="page-title">
+                   <h2>Account Settings</h2>
+               </div>-->
+           </div>
+           {% endif %}
+            <div class="content-holder">
+              {% block content %}
+              {% endblock %}
+            </div>
+            <footer>
+                <div class="content-holder">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <!--Brand Logo-->
+                            <div class="fo-brand">
+                                <img src="{% static 'assets/Logo.png' %}" alt="Brand">
+                            </div>
+                            <div class="divider"></div>
+                            <p class="fo-brand-desc">
+                                “Music gives a soul to the universe, wings to the mind, flight to the imagination and life to everything.”
+                            </p>
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <div class="social">
+                                <a href="https://www.facebook.com"><img src="{% static 'assets/Share-FB.png' %}" alt="facebook" width="32"></a>
+                                <a href="https://www.twitter.com"><img src="{% static 'assets/Share-Twitter.png' %}" alt="facebook" width="32"></a>
+                                <a href="https://aboutme.google.com/"><img src="{% static 'assets/Share-Google-Plus.png' %}" alt="Twitter" width="32"></a>
+                            </div>
+                            <!--div class="app-store">
+                                <a href="javascript:void(0)"><img src="{% static 'assets/AppStore-Apple.png' %}" alt="Apple App Store" width="120"></a>
+                                <a href="javascript:void(0)"><img src="{% static 'assets/AppStore-Google.png' %}" alt="Google App Store" width="120"></a>
+                            </div-->
+                        </div>
+                    </div>
+                    <div class="row  text-center">
+                        <div class="col-sm-12">
+                            <div class="fo-nav">
+                                <nav>
+                                    <a href="{% url 'about-us'%}">About Us</a>
+                                    <a href="">Contact Us</a>
+                                </nav>
+
+                                <div class="divider"></div>
+
+                                <div class="powered-by">
+                                    <p>
+                                        Powered By:
+                                        <a href="javascript:void(0)"><img src="{% static 'assets/business_logo.png' %}" alt="" width="70"></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-inline top10p">
+                                <li>
+                                  <h5>LOGIN</h5>
+                                </li>
+                                <li class="meta-info">Not a member yet ?  <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal-register" data-dismiss="modal">REGISTER</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <form id="signin">
+                                <div class="form-group bottom10p">
+                                    <input type="email" class="form-control email" name="email" placeholder="Enter Email ID" required>
+                                </div>
+                                <div class="form-group bottom45p">
+                                    <input type="password" class="form-control password" name="password" placeholder="Enter Password" required>
+                                </div>
+
+                                <button type="button" class="btn as-btn-accent as-btn-md center-block top10p login">Login</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Modal End -->
+        <!-- Register Modal -->
+    <div class="modal fade" id="myModal-register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-inline top10p">
+                                <li>
+                                <h5>REGISTER</h5></li>
+                                <li class="meta-info">Already registered ?  <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal" data-dismiss="modal">LOGIN</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+
+                        <form id="signup" method="POST">
+                            <div class="row">
+                                <div class="form-group col-md-6 bottom10p">
+                                    <input type="text" class="form-control name" name="name"  placeholder="Enter Name" required>
+                                </div>
+                                <div class="form-group col-md-6 bottom10p">
+                                    <input type="email" class="form-control email" name="email" placeholder="Enter Email ID" required>
+                                </div>
+                                <div class="form-group col-md-6 bottom10p">
+                                    <input type="password" class="form-control password" name="password" placeholder="Enter Password" required>
+                                </div>
+                                <div class="form-group col-md-6 bottom45p">
+                                    <input type="password" class="form-control confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+                                </div>
+                                <button type="button" class="btn as-btn-accent as-btn-md center-block register">Register</button>
+
+                            </div>
+                        </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="1" id="favourite_enable">
+<input type="hidden" value="1" id="playlist_enable">
+	<input type="hidden" value="1" id="autoplay_episode">
+
+<script>
+	$('.speed-ctrl').show();
+    var muviAudioMusicPlayerObj = [];
+	var favourite_enable = $('#favourite_enable').val();
+	var playlist_enable = $('#playlist_enable').val();
+    var autoplay_episode = $('#autoplay_episode').val();
+    var playbtnImage = "{% static 'assets/Icons/play-button.png' %}";
+    var pausebtnImage = "{% static 'assets/Icons/pause-button.png' %}";
+    var moreImage = "{% static 'assets/Icons/more.png' %}";
+    var csrfmiddlewaretoken = "{{ csrf_token }}";
+</script>
+ <!--@mantis: 18541 end-->
+<input type="hidden" value="1" id="autoplay_enable">
+<div class="ap" id="ap">
+                <div class="ap__inner">
+
+                    <!-- play buton area -->
+                    <div class="ap__item ap__item--playback">
+                        <div class="art">
+                            <div class="card">
+                                <a href="#">
+                                      <img src="" class="imag_album">
+                                </a>
+                            </div>
+                            <div class="art-desc">
+                                <h6 class="c-font-white"></h6>
+                    <p class="c-font-white c-font-12 meta-info"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ play buton area end-->
+
+                    <!-- progress-bar -->
+        <div class="ap__item--track">
+                        <div class="play-section">
+                <button class="ap__controls ap__controls--prev"> <svg version="1.1" fill="#7e7c8a" width="20" height="20"
+                        id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                        y="0px" viewBox="-255 128 512 512" xml:space="preserve">
+        <g>
+          <g id="skip-previous">
+            <rect x="-255" y="128" fill="#FFFFFF" width="85.3" height="512"/>
+            <polygon fill="#FFFFFF" points="-105.7,384 257,640 257,128 		"/>
+          </g>
+        </g>
+        </svg> </button>
+
+                <button class="ap__controls ap__controls--toggle"> <svg class="icon-play" version="1.1" baseProfile="tiny"
+                        id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="-487 360.4 47.6 47.6" xml:space="preserve" width="20" height="20" data-play="M-2356.8,2285.6c-13.1,0-19-11.3-19-22.4V1994c0-11.2,5.9-22.4,19-22.4c4.3,0,8.7,1.3,13.1,3.9l233.1,134.6
+                      c7.9,4.6,12.4,11.3,12.4,18.5s-4.5,14-12.4,18.5l-233.1,134.6C-2348.1,2284.3-2352.6,2285.6-2356.8,2285.6z M-2356.8,1985.6
+                      c-4.4,0-5,5.3-5,8.4v269.2c0,3.1,0.7,8.4,5,8.4c1.2,0,3.3-0.3,6.1-2l233.1-134.6c3.4-2,5.4-4.4,5.4-6.4s-2-4.5-5.4-6.4
+                      l-233.1-134.6C-2353.6,1985.9-2355.6,1985.6-2356.8,1985.6z">
+        <g>
+          <polygon fill="#32C5D2" class="play-btn" points="-482.2,360.4 -482.2,408 -444.8,384.2 " d=""/>
+          <path class="pause-btn" fill="#32C5D2" d="M-469,401.4c0,3.7-3,6.6-6.6,6.6l0,0c-3.7,0-6.6-3-6.6-6.6V367c0-3.7,3-6.6,6.6-6.6l0,0
+			c3.7,0,6.6,3,6.6,6.6V401.4z"/>
+          <path class="pause-btn" fill="#32C5D2" d="M-469,401.4c0,3.7-3,6.6-6.6,6.6l0,0c-3.7,0-6.6-3-6.6-6.6V367c0-3.7,3-6.6,6.6-6.6l0,0
+			c3.7,0,6.6,3,6.6,6.6V401.4z"/>
+          <path class="pause-btn" fill="#32C5D2" d="M-444.1,401.4c0,3.7-3,6.6-6.6,6.6l0,0c-3.7,0-6.6-3-6.6-6.6V367c0-3.7,3-6.6,6.6-6.6l0,0
+			c3.7,0,6.6,3,6.6,6.6V401.4z" />
+        </g>
+        </svg> </button>
+
+                <button class="ap__controls ap__controls--next"> <svg version="1.1" fill="#7e7c8a" width="20" height="20"
+                        id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                        y="0px" viewBox="-255 128 512 512" xml:space="preserve">
+        <g>
+          <g id="skip-previous">
+            <rect x="171.7" y="128" fill="#FFFFFF" width="85.3" height="512"/>
+            <polygon fill="#FFFFFF" points="107.7,384 -255,640 -255,128 		"/>
+          </g>
+        </g>
+        </svg> </button>
+                        </div>
+                        <div class="track">
+                            <!-- progress bar -->
+                            <div class="progress-container">
+                                <div class="progress">
+                                    <!-- timmer portion -->
+                                    <div class="track__time">
+                            <span class="track__time--current meta-info">0:00</span>/
+                                        <span class="track__time--duration meta-info">0:00</span>
+                                    </div>
+
+                                    <div class="progress__bar"></div>
+                                    <div class="progress__preload"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./ progress-bar -->
+
+                    <!-- player controles-->
+        <div class="ap__item--settings">
+                        <!--shuffle-->
+                        <!--<button class="ap__controls ap__controls--shuffle">
+					<img class="icon icons8-Shuffle shuffleimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAABq0lEQVRoge2Ya5XDIBCFr4RIqIRKqIRKQEIk4KASKmUlVEIkREL6g3CSZYfHTCCQPXzn8KeP4c7NDAGATqfTCq/aAo6yAPgAGGoLkbKsYwZwr6xFxOKMsa4cPm4CCy7WF1QCor7wBbJjgnHmxoj5WP/zganx2BzuYPUFJ3BKnWqhaOl87KDPQKwxk3D7FIokMIMupwH5nJ8RNoqFIiZ4E7/ThAgFf0OGmviWR/qGIsTtJ6Hcjy2JlPgXCr2ZB5jVyPcUNMIJUojq/QjKmXRaP5e4D/wWn63eY+yfgl4/0+C7DxSs9xAKm8gBcveBgvUeY8Jx96vyxHH3m0Djgu5buvs1+bfuDzDngKYJuT+u3zWNht99+5ZWibFOL7uY+/ukUrBbidPexhr+lcfdqaqEePs4xe+FYivPG3+Ti+GeBYpupzX87gMmQa4g34EmK3ZpTFn33acQK6XQkTLrvZA7Qod6bqzQHEXuhRZsW2mKR8YkkvuCEzDlEJIriWz3QjOAH/C2CXeYnpgOiD/tnCwl1MS3erLSkZZoM4jqvSUuVe8Ul6p3ikvVe6fTCl8URNhtOU3WGAAAAABJRU5ErkJggg==" width="25" height="20">
+				</button>-->
+
+                        <!--repeat-->
+            <button class="ap_ctrl_group ap__controls--repeat">
+                <svg version="1.1" width="20" fill="#7e7c8a" height="20" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-452 254 54 54" style="enable-background:new -452 254 54 54;"
+                    xml:space="preserve">
+      <g>
+        <path class="st2" d="M-400.8,275h-5.1c-0.8,0-1.5-0.4-1.8-1.2s-0.2-1.5,0.4-2.1l3.6-3.6c0.5-0.5,0.8-1.2,0.8-2c0-0.7-0.3-1.4-0.8-2
+                            l-4.6-4.6c-1.1-1-2.9-1.1-3.9,0l-3.6,3.6c-0.6,0.6-1.4,0.7-2.1,0.4c-0.8-0.3-1.2-1-1.2-1.8v-5.1c0-1.5-1.2-2.8-2.8-2.8h-6.4
+                            c-1.5,0-2.8,1.2-2.8,2.8v5.1c0,0.8-0.4,1.5-1.2,1.8c-0.7,0.3-1.5,0.2-2.1-0.4l-3.6-3.6c-1.1-1.1-2.9-1-3.9,0l-4.6,4.6
+                            c-0.5,0.5-0.8,1.2-0.8,2c0,0.7,0.3,1.4,0.8,2l3.6,3.6c0.6,0.6,0.7,1.4,0.4,2.1s-1,1.2-1.8,1.2h-5.1c-1.5,0-2.8,1.2-2.8,2.8v6.4
+                            c0,1.5,1.2,2.8,2.8,2.8h5.1c0.8,0,1.5,0.4,1.8,1.2s0.2,1.5-0.4,2.1l-3.6,3.6c-0.5,0.5-0.8,1.2-0.8,2c0,0.7,0.3,1.4,0.8,2l4.6,4.6
+                            c1.1,1.1,2.9,1.1,3.9,0l3.6-3.6c0.6-0.6,1.4-0.7,2.1-0.4c0.8,0.3,1.2,1,1.2,1.8v5.1c0,1.5,1.2,2.8,2.8,2.8h6.4
+                            c1.5,0,2.8-1.2,2.8-2.8v-5.1c0-0.8,0.4-1.5,1.2-1.8c0.8-0.3,1.5-0.2,2.1,0.4l3.6,3.6c1.1,1.1,2.9,1.1,3.9,0l4.6-4.6
+                            c0.5-0.5,0.8-1.2,0.8-2c0-0.7-0.3-1.4-0.8-2l-3.6-3.6c-0.6-0.6-0.7-1.4-0.4-2.1s1-1.2,1.8-1.2h5.1c1.5,0,2.8-1.2,2.8-2.8v-6.4
+                            C-398,276.2-399.2,275-400.8,275z M-400,284.2c0,0.4-0.4,0.8-0.8,0.8h-5.1c-1.6,0-3,0.9-3.6,2.4c-0.6,1.5-0.3,3.1,0.9,4.3l3.6,3.6
+                            c0.3,0.3,0.3,0.8,0,1.1l-4.6,4.6c-0.3,0.3-0.8,0.3-1.1,0l-3.6-3.6c-1.1-1.1-2.8-1.5-4.3-0.9c-1.5,0.6-2.4,2-2.4,3.6v5.1
+                            c0,0.4-0.4,0.8-0.8,0.8h-6.4c-0.4,0-0.8-0.4-0.8-0.8v-5.1c0-1.6-0.9-3-2.4-3.6c-0.5-0.2-1-0.3-1.5-0.3c-1,0-2,0.4-2.8,1.2l-3.6,3.6
+                            c-0.3,0.3-0.8,0.3-1.1,0l-4.6-4.6c-0.3-0.3-0.3-0.8,0-1.1l3.6-3.6c1.1-1.1,1.5-2.8,0.9-4.3c-0.6-1.5-2-2.4-3.6-2.4h-5.1
+                            c-0.4,0-0.8-0.4-0.8-0.8v-6.4c0-0.4,0.4-0.8,0.8-0.8h5.1c1.6,0,3-0.9,3.6-2.4c0.6-1.5,0.3-3.1-0.9-4.3l-3.6-3.6
+                            c-0.3-0.3-0.3-0.8,0-1.1l4.6-4.6c0.3-0.3,0.8-0.3,1.1,0l3.6,3.6c1.1,1.1,2.8,1.5,4.3,0.9c1.5-0.6,2.4-2,2.4-3.6v-5.1
+                            c0-0.4,0.4-0.8,0.8-0.8h6.4c0.4,0,0.8,0.4,0.8,0.8v5.1c0,1.6,0.9,3,2.4,3.6c1.5,0.6,3.1,0.3,4.3-0.9l3.6-3.6c0.3-0.3,0.8-0.3,1.1,0
+                            l4.6,4.6c0.3,0.3,0.3,0.8,0,1.1l-3.6,3.6c-1.1,1.1-1.5,2.8-0.9,4.3c0.6,1.5,2,2.4,3.6,2.4h5.1c0.4,0,0.8,0.3,0.8,0.8V284.2z" />
+        <path class="st0" d="M-425,272c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S-420,272-425,272z M-425,288c-3.9,0-7-3.1-7-7s3.1-7,7-7s7,3.1,7,7
+                            S-421.1,288-425,288z" />
+      </g>
+                </svg>
+            </button>
+            <div class="ap_ctrl_group speed-ctrl">
+                <button class="ap__controls ap__controls--speed-ctrl">1x</button>
+                <div class="speed-ctrl-scale">
+                    <!-- ER 22266 Start -->
+                    <input type="range" min="50" max="150" value="100" class="speed-ctrl-slider" id="speed-ctrl-slider" onchange="speed_change();"/>
+                    <!-- ER 22266 End -->
+                    <span class="_label-slow">Slow</span>
+                    <span class="_label-fast">Fast</span>
+                    <ul class="speed-ctrl-scale-count">
+                        <li>0.5</li>
+                        <li>0.6</li>
+                        <li>0.7</li>
+                        <li>0.8</li>
+                        <li>0.9</li>
+                        <li>1</li>
+                        <li>1.1</li>
+                        <li>1.2</li>
+                        <li>1.3</li>
+                        <li>1.4</li>
+                        <li>1.5</li>
+                    </ul>
+
+                </div>
+            </div>
+                        <div class="ap_ctrl_group add-to-fav">
+                <!--button class="ap__controls ap__controls--add-fav addTofav" data-content_id="" data-fav_status="" data-user_id="" data-content_type=""  >
+                    <img class="_fill" src="https://webui.muvi.com/themes/form/images/favourite_fill.png" alt="Add to Favourite">
+                    <img class="_line" src="https://webui.muvi.com/themes/form/images/favourite_line.png" alt="Remove Favourite">
+                </butto-->
+            </div>
+                                    <!--volume-->
+            <div class="ap_ctrl_group volume-container dn">
+                <button class="ap__controls volume-btn"> <svg class="icon-volume-on" version="1.1" fill="#333" width="20"
+                        height="20" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="-255 128 512 512" xml:space="preserve">
+        <g>
+          <path  fill="#FFFFFF" d="M-255,298.7v170.7h113.8L1,611.6V156.4l-142.2,142.2H-255z M129,384c0-51.2-28.4-93.9-71.1-113.8v227.6
+			C100.6,477.9,129,435.2,129,384z M57.9,133.7v59.7C140.4,219,200.1,293,200.1,384S140.4,549,57.9,574.6v59.7
+			C171.7,608.7,257,506.3,257,384S171.7,159.3,57.9,133.7z"/>
+        </g>
+                    </svg> <svg class="icon-volume-off" version="1.1" width="20" height="20" baseProfile="tiny" id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="-255 128 512 512" xml:space="preserve">
+        <g>
+          <path  fill="#FFFFFF" d="M116.5,382.5c0-45.9-25.5-84.1-63.8-102v56.1l63.8,63.8C116.5,392.7,116.5,387.6,116.5,382.5z
+			 M180.3,382.5c0,23-5.1,45.9-12.8,66.3l38.3,38.3c17.9-30.6,25.5-68.9,25.5-107.1c0-109.6-76.5-201.4-178.5-224.4v53.6
+			C126.7,234.6,180.3,300.9,180.3,382.5z M-194.6,153l-33.2,33.1L-107.9,306h-119.9v153h102L1.8,586.5V415.6l109.6,109.6
+			c-17.9,12.8-35.7,23-58.6,30.6v53.5c35.7-7.6,66.3-23,94.4-45.9l51,51l33.1-33.1L1.8,351.9L-194.6,153z M1.8,178.5l-53.6,53.6
+			l53.6,53.6V178.5z"/>
+        </g>
+        </svg> </button>
+                            <div class="volume">
+                                <div class="volume__track">
+                                    <div class="volume__bar"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Share-->
+
+
+            <div class="ap_ctrl_group playlist-container">
+                            <button class="ap__controls ap__controls--playlist queList">
+                                <img class="mt" src="{% static 'assets/icons/playlist.png' %}" alt="Playlist">
+                            </button>
+                        </div>
+					</div>
+                    <!-- ./player controles ends -->
+                </div>
+
+	</div>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery_cookie.js' %}"></script>
+    <script src="{% static 'vendor/custom-scrollbar/jquery.mCustomScrollbar.min.js' %}"></script>
+    <script src="{% static 'vendor/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/audioplayer.js' %}"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<section>
+    <h6>Latest Singles</h6>
+    <div class="owl-carousel">
+      {% for song in newSingle %}
+      <div class="card">
+             <a href="javascript:void(0)"  {% if song.album_type != 1 or song.is_episode == 1 %}  data-album_id="{{song.id}}" data-file="{% if song.song_file_name|length > 0 %}http://localhost/soundstudio/uploads/media/{{song.song_file_name}}{% endif %}" data-poster="{% if song.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{song.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" data-duration="{{song.duration}}" onclick="playAudio(this)" data-title="{{song.title}}" data-album_type="{{song.album_type}}" data-permalink="{% url 'album' song.permalink %}" {% else %} data-index="0"  data-album_id="{{song.id}}" onclick="playAllAudio(this)" {% endif %}>
+                 <figure>
+                     <img class="owl-lazy" data-src="{% if song.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{song.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" alt="" >
+                     <div class="overlay text-center">
+                       <svg version="1.1" id="Capa_{{song.id}}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-201 40 467 467">
+                             <g>
+                                 <circle class="st0" cx="34" cy="274.1" r="227"></circle>
+                                 <circle class="st1" cx="34" cy="274.1" r="220"></circle>
+                                 <g class="st2">
+                                     <path class="st3" d="M123.7,269.9L-5.2,195.5c-3.3-1.9-7.3-1.9-10.6,0s-5.3,5.4-5.3,9.2v148.8c0,3.8,2,7.3,5.3,9.2
+  c1.6,1,3.5,1.4,5.3,1.4s3.6-0.5,5.3-1.4l128.9-74.4c3.3-1.9,5.3-5.4,5.3-9.2S127,271.8,123.7,269.9z"></path>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                 </figure>
+                 <h6><a href="{% url 'album' song.permalink %}">{{song.title}}</a></h6>
+             </a>
+         </div>
+
+     {% endfor %}
+    </div>
+</section>
+<section>
+    <h6>Latest Albums</h6>
+    <div class="owl-carousel">
+      {% for album in newAlbum %}
+      <div class="card">
+             <a href="javascript:void(0)"  {% if album.album_type != 1 or album.is_episode == 1 %}  data-album_id="{{album.id}}" data-file="{% if album.song_file_name|length > 0 %}http://localhost/soundstudio/uploads/media/{{album.song_file_name}}{% endif %}" data-poster="{% if song.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{album.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" data-duration="{{album.duration}}" onclick="playAudio(this)" data-title="{{album.title}}" data-album_type="{{album.album_type}}" data-permalink="{% url 'album' album.permalink %}" {% else %} data-index="0"  data-album_id="{{album.id}}" onclick="playAllAudio(this)" {% endif %}>
+                 <figure>
+                     <img class="owl-lazy" data-src="{% if album.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{album.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" alt="" >
+                     <div class="overlay text-center">
+                       <svg version="1.1" id="Capa_{{album.id}}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-201 40 467 467">
+                             <g>
+                                 <circle class="st0" cx="34" cy="274.1" r="227"></circle>
+                                 <circle class="st1" cx="34" cy="274.1" r="220"></circle>
+                                 <g class="st2">
+                                     <path class="st3" d="M123.7,269.9L-5.2,195.5c-3.3-1.9-7.3-1.9-10.6,0s-5.3,5.4-5.3,9.2v148.8c0,3.8,2,7.3,5.3,9.2
+  c1.6,1,3.5,1.4,5.3,1.4s3.6-0.5,5.3-1.4l128.9-74.4c3.3-1.9,5.3-5.4,5.3-9.2S127,271.8,123.7,269.9z"></path>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                 </figure>
+                 <h6><a href="{% url 'album' album.permalink %}">{{album.title}}</a></h6>
+             </a>
+         </div>
+
+     {% endfor %}
+    </div>
+</section>
+
+
+
+{% endblock %}

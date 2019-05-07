@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<section class="p-t-10">
+    <h6>Artist : {{title}}</h6>
+    <div class="card-gallery">
+        <div class="row">
+          {% if legalCast and totalAlbums %}
+            {% for album in albums %}
+            <div class="col-fluid">
+                 <div class="card">
+                      <a href="javascript:void(0)" {% if album.is_converted == 1 %}{% if album.album_type != 1 %}  data-album_id="{{album.id}}" data-file="{% if album.song_file_name|length > 0 %}http://localhost/soundstudio/uploads/media/{{album.song_file_name}}{% endif %}" data-poster="{% if album.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{album.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" data-duration="{{album.duration}}" onclick="playAudio(this)" data-title="{{album.title}}" data-album_type="{{album.album_type}}" data-permalink="{% url 'album' album.permalink %}" {% else %} data-index="0"  data-album_id="{{album.id}}" onclick="playAllAudio(this)" {% endif %}{% endif %}>
+                          <figure style="background-image: url('assets/album/default-artwork.jpg');">
+                              <img class="owl-lazy" src="{% if album.poster|length > 0 %}http://localhost/soundstudio/uploads/image/{{album.poster}}{% else %} {% static 'assets/album/default-artwork.jpg' %} {% endif %}" alt="" >
+                              <div class="overlay text-center">
+                                <svg version="1.1" id="Capa_{{album.id}}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-201 40 467 467">
+                                      <g>
+                                          <circle class="st0" cx="34" cy="274.1" r="227"></circle>
+                                          <circle class="st1" cx="34" cy="274.1" r="220"></circle>
+                                          <g class="st2">
+                                              <path class="st3" d="M123.7,269.9L-5.2,195.5c-3.3-1.9-7.3-1.9-10.6,0s-5.3,5.4-5.3,9.2v148.8c0,3.8,2,7.3,5.3,9.2
+      c1.6,1,3.5,1.4,5.3,1.4s3.6-0.5,5.3-1.4l128.9-74.4c3.3-1.9,5.3-5.4,5.3-9.2S127,271.8,123.7,269.9z"></path>
+                                          </g>
+                                      </g>
+                                  </svg>
+                              </div>
+                          </figure>
+                          <h6><a href="{% url 'album' album.permalink %}">{{album.title}}</a></h6>
+                      </a>
+                  </div>
+              </div>
+              {% endfor %}
+            {% else %}
+              {% if legalCast == 0 %}
+                <div class="col-fluid">  Artist not available </div>
+              {% else %}
+                <div class="col-fluid">  Content not available </div>
+              {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

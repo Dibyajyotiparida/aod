@@ -1,0 +1,415 @@
+/*
+**** File   : color.css for Audio Streaming
+**** Desc   : It is imported to css/main.css
+**** Author : Designer Desk
+*/
+
+
+/*======================Color Declaration=====================\*
+
+**** Primary Set
+---------------------------------------
+#0f131a (The Base , Body Bg), #12171f (Navbar , Player Bg) , #11151d (Sidebar and Modal Bg), #1a1f2b (Dropdown , Tooltip bg), 
+#181a21 (Footer Bg)
+
+
+**** Accent Color Set
+--------------------------------------
+#953f32(The Base) , #cf5540 (hover) , #993f2f (focus, active) 
+
+
+**** Sheds of Grey
+--------------------------------------
+#aaa2a3(The Base , Body Text Color) , #aaa2a3 (Body Text Color - A little Darker) , rgba(white , 70%) [All Header Text Color,
+Sidebar Menu Color] , rgba(white , 40%) [Navbar Text color]
+
+
+**** Success/Error Color Set
+--------------------------------------
+#00887c (Success) , #ac2a2b(Error) , 
+
+
+\*===========================================================*/
+
+
+/* ------------------------------------------------------------ *\
+	Base
+\* ------------------------------------------------------------ */
+body {
+    background-color: #0f131a;
+    color: #aaa2a3;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+a {
+    color: #953f32;
+}
+
+a:hover {
+    color: #cf5540;
+}
+
+a:focus,
+a:active {
+    color: #993f2f;
+}
+
+.as-btn-accent {
+    border-color: #953f32;
+    color: #fff;
+    background: #953f32;
+}
+
+.as-btn-accent:hover {
+    color: #fff;
+    background: #cf5540;
+}
+
+.as-btn-accent:focus,
+.btn-accent:active {
+    color: #fff;
+    background: #993f2f;
+}
+
+.as-btn-default {
+    border-color: #222838;
+    color: #fff;
+    background: #1a1f2b;
+}
+
+.as-btn-default:hover {
+    color: #fff;
+    background: #222838;
+}
+
+.as-btn-default:focus,
+.btn-accent:active {
+    color: #fff;
+    background: #1a1f2b;
+}
+
+section > h6 {
+    color: #aaa2a3;
+}
+
+.form-control {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    border-bottom: 2px solid #953f32 !important;
+}
+
+.divider {
+    background-color: #202736;
+}
+
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #0d0f13 !important;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #11161e;
+}
+
+select {
+    background-color: #0f131a !important;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+    border: 1px solid #1a1f2b;
+}
+
+.success {
+    color: #00887c
+}
+
+.alert {
+    background-color: #11151d;
+    border: 1px solid #1a1f2b;
+    color: #aaa2a3;
+}
+.alert-success{
+    color: #00887c !important;
+    background-color: none;
+}
+.alert-error{
+    color: #ac2a2b !important;
+}
+.tooltip > .tooltip-inner {
+    background-color: #1a1f2b;
+    color: #b8b7bf;
+}
+
+.tooltip > .tooltip-arrow {
+    border-bottom-color: #1a1f2b;
+}
+
+/* ------------------------------------------------------------ *\
+	Haeder and Nav Content
+\* ------------------------------------------------------------ */
+
+.navbar-default {
+    background-color: #12171f;
+    border-color: transparent;
+}
+
+.navbar-nav li a:not(.as-btn-accent) {
+    color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.navbar-nav li a:hover {
+    color: #953f32 !important;
+}
+
+.navbar-nav li a.as-btn-accent:hover {
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+.nav .open>a,
+.nav .open>a:focus,
+.nav .open>a:hover,
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.dropdown-menu {
+    background-color: #1a1f2b;
+    border-color: transparent;
+}
+
+.dropdown-menu:before,
+.dropdown-menu-visible-xs:before {
+    border-bottom: 8px solid #1a1f2b;
+}
+
+.dropdown-menu .divider,
+.dropdown-menu-visible-xs.divider {
+    background-color: #252d3e;
+}
+
+
+/*+++++++++++++  Sidebar Menu  +++++++++++++*/
+
+.sidebar-menu {
+    background-color: #11151d;
+}
+
+.sidebar-menu a,
+.fo-nav a {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fo-nav a.active {
+    color: #953f32;
+    text-decoration: underline;
+}
+
+.fo-nav a:hover {
+    color: #953f32
+}
+.sidebar-menu a.active{
+    color: #953f32;
+    background: #181a21;
+}
+
+.sidebar-menu a:hover{
+    color: #953f32;
+    background: #181a21;   
+}
+.navbar-nav li.lang-selected a {
+    color: #953f32 !important;
+}
+
+
+/* ------------------------------------------------------------ *\
+	Search
+\* ------------------------------------------------------------ */
+
+.search-field:focus {
+    background-color: #12171f;
+}
+
+
+/* ------------------------------------------------------------ *\
+	wrapper , section , card
+\* ------------------------------------------------------------ */
+
+.card p {
+    color: #aaa2a3;
+}
+
+.card:hover h6 {
+    color: #953f32 !important;
+    font-weight: bold;
+}
+
+.fill-header {
+    background: #12171f;
+}
+
+.fill-header:after {
+    background-color: rgba(17, 21, 29, 0.88);
+}
+
+.fill-header:before {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,0f131a+100&0+0,1+100 */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(15, 19, 26, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(15, 19, 26, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(15, 19, 26, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#0f131a', GradientType=0);
+    /* IE6-9 */
+}
+
+.track-item {
+    border-bottom: 1px solid #1a1f2b;
+    transform: 0.5s;
+}
+
+.track-list {
+    border-top: 1px solid #1a1f2b;
+}
+
+.track-item:hover,
+.current-track {
+    background-color: #1a1f2b;
+    border-bottom: 1px solid #202736;
+}
+
+.plan-box {
+    background-color: #1a1f2b;
+}
+
+.plan-box .title {
+    color: #b64a38;
+    margin-bottom: 40px;
+    opacity: 0.5;
+}
+
+.plan-box .body sup {
+    font-size: 24px;
+}
+
+.plan-box .body h1 small {
+    font-size: 18px;
+}
+
+.checked {
+    background-color: #b64a38;
+}
+
+/* ------------------------------------------------------------ *\
+	Purchase History
+\* ------------------------------------------------------------ */
+
+.transcation-detail .list-inline li:first-child {
+    color:#fff;
+}
+table h6{
+    color: #fff;
+}
+/* ------------------------------------------------------------ *\
+	Footer
+\* ------------------------------------------------------------ */
+
+footer {
+    background-color: #181a21;
+}
+
+.fo-btn {
+    background-color: #0f131a;
+    color: #aaa2a3;
+}
+
+.fo-btn:hover {
+    color: #aaa2a3 !important;
+    background: #222838;
+}
+
+.fo-btn:focus,
+.fo-btn:active {
+    color: #aaa2a3 !important;
+    background: #0f131a;
+}
+
+.remove-branding .arrow-up {
+    background: #0f131a;
+}
+
+.fo-btn:hover .arrow-up {
+    background: #222838;
+}
+.fo-btn:focus .arrow-up,
+.fo-btn:active .arrow-up{
+    background: #0f131a;
+}
+
+/* ------------------------------------------------------------ *\
+	Modal Elements
+\* ------------------------------------------------------------ */
+
+.gray {
+    color: #4b4a4a;
+}
+
+.modal-backdrop {
+    background-color: #0f141b;
+}
+
+.modal-content {
+    background: #11151d;
+    border: 1px solid #151c26;
+}
+
+.modal .close:focus,
+.modal .close:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.login-fb {
+    border: 1px #4b4a4a solid;
+    color: #48629b;
+}
+
+.login-fb:hover {
+    color: #49629b;
+}
+
+/* ------------------------------------------------------------ *\
+	Search Suggestion , 
+\* ------------------------------------------------------------ */
+
+.ui-widget-content,.ui-widget-content a{
+	background-color: #1a1f2b ;
+    color: rgba(255,255,255,0.7) ;
+}
+.ui-widget-content a
+ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active,.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus{
+    color: #cf5540 ;
+}
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+    border: 0 ;
+    background: none ;
+}
